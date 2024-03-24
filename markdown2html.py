@@ -1,6 +1,8 @@
 #!/usr/bin/python3
-"""Markdown to HTML"""
 
+"""
+Markdown script using python.
+"""
 import sys
 import os.path
 import re
@@ -19,7 +21,7 @@ if __name__ == '__main__':
     with open(sys.argv[1]) as read:
         with open(sys.argv[2], 'w') as html:
             unordered_start, ordered_start, paragraph = False, False, False
-            # bold syntax markdown to html
+            # bold syntax
             for line in read:
                 line = line.replace('**', '<b>', 1)
                 line = line.replace('**', '</b>', 1)
@@ -33,7 +35,7 @@ if __name__ == '__main__':
                     line = line.replace(md5[0], hashlib.md5(
                         md5_inside[0].encode()).hexdigest())
 
-                # removing the letter C
+                # remove the letter C
                 remove_letter_c = re.findall(r'\(\(.+?\)\)', line)
                 remove_c_more = re.findall(r'\(\((.+?)\)\)', line)
                 if remove_letter_c:
@@ -48,7 +50,7 @@ if __name__ == '__main__':
                 unordered_num = length - len(unordered)
                 ordered = line.lstrip('*')
                 ordered_num = length - len(ordered)
-                # headings and lists
+                # headings, lists
                 if 1 <= heading_num <= 6:
                     line = '<h{}>'.format(
                         heading_num) + headings.strip() + '</h{}>\n'.format(
